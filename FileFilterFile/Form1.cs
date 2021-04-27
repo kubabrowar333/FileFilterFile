@@ -6,8 +6,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -28,6 +30,11 @@ namespace FileFilterFile
                 FileCunut = 0;
                 Size = 0;
             }
+            public void Clear()
+            {
+                FileCunut = 0;
+                Size = 0;
+            }
         }
 
         HashSet<FolderFilter> DeflautFolderFilter = new HashSet<FolderFilter>()
@@ -41,7 +48,7 @@ namespace FileFilterFile
             new FolderFilter("Discord",@"^JPEG_[0-9]{8}_[0-9]{6}\.jpg$"),
             new FolderFilter("WhatsApp",@"^[a-zA-Z]{3}(_|-)[0-9]{8}-WA[0-9]{4}\.(mp4|jpg)$"),
             new FolderFilter("Other",@"^.*\.(mp4|png|gif)$"),
-        };    
+        };
         public Form1()
         {
             InitializeComponent();
@@ -136,8 +143,13 @@ namespace FileFilterFile
 
         private void bt_check_Click(object sender, EventArgs e)
         {
+            listBox1.Items.Clear();
+            listView1.Items.Clear();
+            foreach (var item in DeflautFolderFilter)
+                item.Clear();
             ProcessCheckDirectory(tb_source.Text);
             DisplayFolders(DeflautFolderFilter);
+
         }
 
         private void ProcessCheckDirectory(string targetDirectory)
@@ -190,18 +202,29 @@ namespace FileFilterFile
             {
                 if (filtr.Filter.IsMatch(name))
                 {
+                    var TargetFile = Path.Combine(tb_target.Text, filtr.FolderName, name);
                     filtr.FileCunut++;
                     filtr.Size += new FileInfo(fileName).Length / 1024;
                     if (filtr.FolderName == "Other") listBox1.Items.Add(name);
-                    File.Move(fileName, Path.Combine(tb_target.Text, filtr.FolderName,name));
+                    if (!File.Exists(TargetFile)) 
+                    {
+                        if (cb_autoFill.Checked == true)
+                            File.Move(fileName, TargetFile);
+                        else File.Copy(fileName, TargetFile);
+                    }
                     break;
                 }
             }
         }
 
-        private void bt_execute_Click(object sender, EventArgs e)
+        private void bt_execute_Click(object sender, EventArgs e)//------------------------------------------------------
         {
-            if(CreateFolders(tb_target.Text, DeflautFolderFilter))
+            listBox1.Items.Clear();
+            listView1.Items.Clear();
+            foreach (var item in DeflautFolderFilter)
+                item.Clear();
+
+            if (CreateFolders(tb_target.Text, DeflautFolderFilter))
             {
                 ProcessMoveDirectory(tb_source.Text);
                 DisplayFolders(DeflautFolderFilter);
@@ -209,7 +232,7 @@ namespace FileFilterFile
                     if (Directory.GetFiles(subdirectory).Length == 0 && Directory.GetDirectories(subdirectory).Length == 0)
                         Directory.Delete(subdirectory);
             }
-        }
+        }//-------------------------------------------------------------------------------------------------------------
 
         private string[] GetDirPaths()
         {
@@ -225,11 +248,6 @@ namespace FileFilterFile
                         Directory.CreateDirectory(path);
             }
             return dirs;
-        }
-
-        private void cb_autoFill_CheckedChanged(object sender, EventArgs e)
-        {
-            
         }
 
         private void bt_oepn_source_Click(object sender, EventArgs e)
@@ -252,6 +270,17 @@ namespace FileFilterFile
         {
             if (tb_target.Text.Length == 0) bt_open_target.Enabled = false;
             else bt_open_target.Enabled = true;
+        }
+
+        private void bt_help_Click(object sender, EventArgs e)
+        {
+            string HelpMessage = "Aby dostać pomoc, zadzwoń na:\n123-456-789";
+            MessageBox.Show(HelpMessage, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

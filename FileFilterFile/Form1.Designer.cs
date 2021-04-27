@@ -79,6 +79,8 @@ namespace FileFilterFile
             // 
             // tb_source
             // 
+            this.tb_source.BackColor = System.Drawing.Color.Black;
+            this.tb_source.ForeColor = System.Drawing.Color.Lime;
             this.tb_source.Location = new System.Drawing.Point(105, 12);
             this.tb_source.Name = "tb_source";
             this.tb_source.Size = new System.Drawing.Size(441, 20);
@@ -87,6 +89,8 @@ namespace FileFilterFile
             // 
             // tb_target
             // 
+            this.tb_target.BackColor = System.Drawing.Color.Black;
+            this.tb_target.ForeColor = System.Drawing.Color.Lime;
             this.tb_target.Location = new System.Drawing.Point(105, 38);
             this.tb_target.Name = "tb_target";
             this.tb_target.Size = new System.Drawing.Size(441, 20);
@@ -108,14 +112,12 @@ namespace FileFilterFile
             this.cb_autoFill.AutoSize = true;
             this.cb_autoFill.Checked = true;
             this.cb_autoFill.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_autoFill.Enabled = false;
             this.cb_autoFill.Location = new System.Drawing.Point(439, 68);
             this.cb_autoFill.Name = "cb_autoFill";
             this.cb_autoFill.Size = new System.Drawing.Size(134, 17);
             this.cb_autoFill.TabIndex = 12;
             this.cb_autoFill.Text = "Usuń przeniesonie pliki";
             this.cb_autoFill.UseVisualStyleBackColor = true;
-            this.cb_autoFill.CheckedChanged += new System.EventHandler(this.cb_autoFill_CheckedChanged);
             // 
             // bt_check
             // 
@@ -145,13 +147,16 @@ namespace FileFilterFile
             this.bt_help.TabIndex = 27;
             this.bt_help.Text = "Pomoc";
             this.bt_help.UseVisualStyleBackColor = true;
+            this.bt_help.Click += new System.EventHandler(this.bt_help_Click);
             // 
             // listView1
             // 
+            this.listView1.BackColor = System.Drawing.Color.Black;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
+            this.listView1.ForeColor = System.Drawing.Color.Lime;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(12, 64);
             this.listView1.Name = "listView1";
@@ -159,6 +164,7 @@ namespace FileFilterFile
             this.listView1.TabIndex = 28;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -198,6 +204,8 @@ namespace FileFilterFile
             // 
             // listBox1
             // 
+            this.listBox1.BackColor = System.Drawing.Color.Black;
+            this.listBox1.ForeColor = System.Drawing.Color.Lime;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(273, 117);
             this.listBox1.Name = "listBox1";
@@ -217,6 +225,8 @@ namespace FileFilterFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(655, 276);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.listBox1);
@@ -233,8 +243,12 @@ namespace FileFilterFile
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bt_dir_sorce);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "FileFilterLite 1.00";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "FileFilterLite 1.01";
             this.ResumeLayout(false);
             this.PerformLayout();
 
