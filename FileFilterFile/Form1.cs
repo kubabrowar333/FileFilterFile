@@ -270,6 +270,6 @@ namespace FileFilterFile
             string HelpMessage = "Aby uzyskać pomoc, zadzwoń na:\n123-456-789";
             MessageBox.Show(HelpMessage, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
-         
+            
     }
 }
