@@ -54,7 +54,6 @@ namespace FileFilterFile
             InitializeComponent();
         }
 
-
         /*
 
         Photo:      20180905_104540.jpg
@@ -109,18 +108,14 @@ namespace FileFilterFile
                 foreach (var folder in folders)
                     if (!Directory.EnumerateFiles(Path.Combine(dir, folder.FolderName)).Any())
                         Directory.Delete(Path.Combine(dir, folder.FolderName));
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Wystąpił nieoczekiwany błąd podczas ususwania folderu:\n" + ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-
             return true;
         }
-
-
 
         private void bt_dir_sorce_Click(object sender, EventArgs e)
         {
@@ -139,7 +134,6 @@ namespace FileFilterFile
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                 tb_target.Text = folderBrowserDialog.SelectedPath;
         }
-
 
         private void bt_check_Click(object sender, EventArgs e)
         {
@@ -208,8 +202,7 @@ namespace FileFilterFile
                     if (filtr.FolderName == "Other") listBox1.Items.Add(name);
                     if (!File.Exists(TargetFile)) 
                     {
-                        if (cb_autoFill.Checked == true)
-                            File.Move(fileName, TargetFile);
+                        if (cb_autoFill.Checked == true) File.Move(fileName, TargetFile);
                         else File.Copy(fileName, TargetFile);
                     }
                     break;
@@ -217,7 +210,7 @@ namespace FileFilterFile
             }
         }
 
-        private void bt_execute_Click(object sender, EventArgs e)//------------------------------------------------------
+        private void bt_execute_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
             listView1.Items.Clear();
@@ -232,7 +225,7 @@ namespace FileFilterFile
                     if (Directory.GetFiles(subdirectory).Length == 0 && Directory.GetDirectories(subdirectory).Length == 0)
                         Directory.Delete(subdirectory);
             }
-        }//-------------------------------------------------------------------------------------------------------------
+        }
 
         private string[] GetDirPaths()
         {
@@ -274,13 +267,9 @@ namespace FileFilterFile
 
         private void bt_help_Click(object sender, EventArgs e)
         {
-            string HelpMessage = "Aby dostać pomoc, zadzwoń na:\n123-456-789";
+            string HelpMessage = "Aby uzyskać pomoc, zadzwoń na:\n123-456-789";
             MessageBox.Show(HelpMessage, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
     }
 }

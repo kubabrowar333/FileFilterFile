@@ -116,7 +116,7 @@ namespace FileFilterFile
             this.cb_autoFill.Name = "cb_autoFill";
             this.cb_autoFill.Size = new System.Drawing.Size(134, 17);
             this.cb_autoFill.TabIndex = 12;
-            this.cb_autoFill.Text = "Usuń przeniesonie pliki";
+            this.cb_autoFill.Text = "Usuń przeniesione pliki";
             this.cb_autoFill.UseVisualStyleBackColor = true;
             // 
             // bt_check
@@ -125,7 +125,7 @@ namespace FileFilterFile
             this.bt_check.Name = "bt_check";
             this.bt_check.Size = new System.Drawing.Size(75, 23);
             this.bt_check.TabIndex = 13;
-            this.bt_check.Text = "Sprawdz";
+            this.bt_check.Text = "Sprawdź";
             this.bt_check.UseVisualStyleBackColor = true;
             this.bt_check.Click += new System.EventHandler(this.bt_check_Click);
             // 
@@ -135,7 +135,7 @@ namespace FileFilterFile
             this.bt_execute.Name = "bt_execute";
             this.bt_execute.Size = new System.Drawing.Size(75, 23);
             this.bt_execute.TabIndex = 26;
-            this.bt_execute.Text = "Przenies";
+            this.bt_execute.Text = "Przenieś";
             this.bt_execute.UseVisualStyleBackColor = true;
             this.bt_execute.Click += new System.EventHandler(this.bt_execute_Click);
             // 
@@ -164,7 +164,6 @@ namespace FileFilterFile
             this.listView1.TabIndex = 28;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
