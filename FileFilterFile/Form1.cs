@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -134,9 +135,11 @@ namespace FileFilterFile
             listView1.Items.Clear();
             foreach (var item in DeflautFolderFilter)
                 item.Clear();
-            ProcessCheckDirectory(tb_source.Text);
-            DisplayFolders(DeflautFolderFilter);
-
+            if (!String.IsNullOrEmpty(tb_source.Text) && !String.IsNullOrEmpty(tb_target.Text))
+            {
+                ProcessCheckDirectory(tb_source.Text);
+                DisplayFolders(DeflautFolderFilter);
+            }
         }
 
         private void ProcessCheckDirectory(string targetDirectory)
@@ -209,15 +212,15 @@ namespace FileFilterFile
             listView1.Items.Clear();
             foreach (var item in DeflautFolderFilter)
                 item.Clear();
-
-            if (CreateFolders(tb_target.Text, DeflautFolderFilter))
-            {
-                ProcessMoveDirectory(tb_source.Text);
-                DisplayFolders(DeflautFolderFilter);
-                foreach (string subdirectory in Directory.GetDirectories(tb_target.Text))
-                    if (Directory.GetFiles(subdirectory).Length == 0 && Directory.GetDirectories(subdirectory).Length == 0)
-                        Directory.Delete(subdirectory);
-            }
+            if (!String.IsNullOrEmpty(tb_source.Text) && !String.IsNullOrEmpty(tb_target.Text))
+                if (CreateFolders(tb_target.Text, DeflautFolderFilter))
+                {
+                    ProcessMoveDirectory(tb_source.Text);
+                    DisplayFolders(DeflautFolderFilter);
+                    foreach (string subdirectory in Directory.GetDirectories(tb_target.Text))
+                        if (Directory.GetFiles(subdirectory).Length == 0 && Directory.GetDirectories(subdirectory).Length == 0)
+                            Directory.Delete(subdirectory);
+                }
         }
 
         private string[] GetDirPaths()
@@ -264,7 +267,44 @@ namespace FileFilterFile
             MessageBox.Show(HelpMessage, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-
-            
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            string HelpMessage = "xaxaxaxaxa )))))";
+            MessageBox.Show(HelpMessage, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        
+        }
+        private Color ColorGen(int x, int y, int factor)
+        {
+            return Color.FromArgb(255 / (factor / (x + 1) + 1), 255 / (factor / (y + 1) + 1), 255 / (factor / (x + y + 1) + 1));
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Bitmap img = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            for (int i = 0; i < pictureBox1.Width; i++)
+            {
+                for (int j = 0; j < pictureBox1.Height; j++)
+                {
+                    double cos = Math.Cos((8*i + 8*j) * Math.PI / 180.0);
+                    byte val = Convert.ToByte(128 + (127.0 * cos));
+                    img.SetPixel(i, j, ColorGen(i,j, 800));
+                }
+            }
+            using (Graphics g = Graphics.FromImage(img))
+            {
+                var list = new List<RectangleF>();
+                for (int x = 0; x+10 < pictureBox1.Width; x += 20)
+                {
+                    for (int y = 0; y+10 < pictureBox1.Height; y += 20)
+                    {
+                        var output = new RectangleF(new PointF(x, y), new SizeF(10, 10));
+                        //list.Add(output);
+                        g.FillRectangle(new SolidBrush(ColorGen(x,y, 455)), output);
+                    }
+                }
+                var rec = list.ToArray();
+                //g.FillRectangles(new SolidBrush(Color.Red), rec);
+            }
+            pictureBox1.Image = img;
+        }
     }
 }
